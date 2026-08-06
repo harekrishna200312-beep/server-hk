@@ -34,10 +34,13 @@ mongoose.connect(process.env.MONGODB_URI, { dbName: 'ledgerdesk' })
       await User.create({ username: 'admin', password: 'Bisu@2003' });
       console.log('✅ Admin user seeded  (admin / Bisu@2003)');
     }
-
-    app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
   })
   .catch(err => {
     console.error('❌ MongoDB connection failed:', err.message);
-    process.exit(1);
   });
+
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+}
+
+export default app;
